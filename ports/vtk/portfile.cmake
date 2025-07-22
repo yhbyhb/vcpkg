@@ -33,10 +33,7 @@ vcpkg_from_github(
         fast-float.patch
         devendor_exodusII.patch
         remove-prefix-changes.patch
-        no-libharu-for-ioexport.patch
-        no-libproj-for-netcdf.patch
         octree.patch
-        fix-tbbsmptool.patch #https://gitlab.kitware.com/vtk/vtk/-/merge_requests/11530
 )
 
 # =============================================================================
