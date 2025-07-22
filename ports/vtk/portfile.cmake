@@ -26,7 +26,6 @@ vcpkg_from_github(
         FindExpat.patch # The find_library calls are taken care of by vcpkg-cmake-wrapper.cmake of expat
         # fix-gdal.patch TODO?
         cgns.patch
-        vtkm.patch
         afxdll.patch
         vtkioss.patch
         jsoncpp.patch
