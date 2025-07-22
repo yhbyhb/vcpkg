@@ -31,7 +31,6 @@ vcpkg_from_github(
         vtkioss.patch
         jsoncpp.patch
         fast-float.patch
-        fix-exprtk.patch # just for dbow2 and theia
         devendor_exodusII.patch
         remove-prefix-changes.patch
         hdf5helper.patch
