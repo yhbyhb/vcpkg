@@ -30,7 +30,6 @@ vcpkg_from_github(
         afxdll.patch
         vtkioss.patch
         jsoncpp.patch
-        iotr.patch
         fast-float.patch
         fix-exprtk.patch # just for dbow2 and theia
         devendor_exodusII.patch
