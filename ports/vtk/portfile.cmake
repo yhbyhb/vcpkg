@@ -44,8 +44,6 @@ file(REMOVE "${SOURCE_PATH}/CMake/FindOGG.cmake")
 vcpkg_replace_string("${SOURCE_PATH}/ThirdParty/ogg/CMakeLists.txt" "OGG::OGG" "Ogg::ogg")
 vcpkg_replace_string("${SOURCE_PATH}/ThirdParty/ogg/CMakeLists.txt" "OGG" "Ogg")
 vcpkg_replace_string("${SOURCE_PATH}/CMake/vtkInstallCMakePackage.cmake" "FindOGG.cmake\n" "")
-vcpkg_replace_string("${SOURCE_PATH}/CMake/FindTHEORA.cmake" "find_dependency(OGG)" "find_dependency(Ogg CONFIG)")
-vcpkg_replace_string("${SOURCE_PATH}/CMake/FindTHEORA.cmake" "OGG::OGG" "Ogg::ogg")
 
 # =============================================================================
 
