@@ -10,8 +10,8 @@ set(VCPKG_POLICY_SKIP_ABSOLUTE_PATHS_CHECK enabled)
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO Kitware/VTK
-    REF 09a76bc55b37caad94d0d8ebe865caaed1b438af # v9.3.x used by ParaView 5.12.0
-    SHA512 396ee901fafacae8aef860b9c9c17cb92ae8b4969527fd271ad8dd9f6a9e0dc8e3dc807c8d43cc585608ad101a64edcd7aff49e1580c7a61a817c2ea8e2655f5
+    REF 13acb1a5dd0ad7f7635f2511f44e599733643d06
+    SHA512 46e22b5f21cba95f75d89f2cea3a2157437fd06bacc07e1fb35575894c35099d35b629f3caf8ebed7fa872dfa2282a59d976ec56a9dcfbbf0162806c30a9df2e
     HEAD_REF master
     PATCHES
         FindLZMA.patch
