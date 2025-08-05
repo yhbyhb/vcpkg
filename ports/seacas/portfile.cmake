@@ -1,15 +1,12 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO  sandialabs/seacas
-    REF 47120843900fd7ef845688fa145ebf76a825bc51
-    SHA512 13677746457edbd4b3619576a6c474f5d8ab2eb24f648fac687e655e3121282b62994575723d18db8d18b42266d219aa4d83344ecff53f5e9a737513a3461180
+    REF aeee5aa11ca52eba884d4fe7a9cd994d1c4b7c27
+    SHA512 06ef324d96dea3be632b04fe64bbab4efa5bd13a88530822c0d159071c215d49d67fd8ccc09b4d067b1f8c60e52e12743c92c0623ac09ca4fe9d5321046495f7
     HEAD_REF master
     PATCHES fix_tpl_libs.patch
-            fix-ioss-includes.patch
             deps-and-shared.patch
             fix-mpi.patch
-            fix-headers.patch
-            fix-fmt-10.patch
             fix-build-error-with-fmt11.patch
 )
 file(REMOVE "${SOURCE_PATH}/cmake/tribits/common_tpls/find_modules/FindHDF5.cmake")
