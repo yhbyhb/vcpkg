@@ -1,5 +1,5 @@
 diff --git a/cmake/TPLs/FindTPLHDF5.cmake b/cmake/TPLs/FindTPLHDF5.cmake
-index 3799818f2..3e17b46ac 100644
+index 3799818f29..19dadcf268 100644
 --- a/cmake/TPLs/FindTPLHDF5.cmake
 +++ b/cmake/TPLs/FindTPLHDF5.cmake
 @@ -55,7 +55,7 @@
@@ -15,14 +15,13 @@ index 3799818f2..3e17b46ac 100644
 +  INNER_FIND_PACKAGE_NAME HDF5
 +  IMPORTED_TARGETS_FOR_ALL_LIBS HDF5::HDF5 )
 diff --git a/cmake/TPLs/FindTPLMETIS.cmake b/cmake/TPLs/FindTPLMETIS.cmake
-index 90911a3cc..bb57e3bf6 100644
+index 90911a3ccc..fb92b8c729 100644
 --- a/cmake/TPLs/FindTPLMETIS.cmake
 +++ b/cmake/TPLs/FindTPLMETIS.cmake
-@@ -53,8 +53,8 @@
- # ************************************************************************
+@@ -54,7 +54,8 @@
  # @HEADER
  
--
+ 
 -TRIBITS_TPL_FIND_INCLUDE_DIRS_AND_LIBRARIES( METIS
 -  REQUIRED_HEADERS metis.h
 -  REQUIRED_LIBS_NAMES "metis"
@@ -33,7 +32,7 @@ index 90911a3cc..bb57e3bf6 100644
 +  INNER_FIND_PACKAGE_NAME metis
 +  IMPORTED_TARGETS_FOR_ALL_LIBS metis )
 diff --git a/cmake/TPLs/FindTPLMatio.cmake b/cmake/TPLs/FindTPLMatio.cmake
-index c76713ab9..f5b8bd702 100644
+index c76713ab9a..f5b8bd7027 100644
 --- a/cmake/TPLs/FindTPLMatio.cmake
 +++ b/cmake/TPLs/FindTPLMatio.cmake
 @@ -56,7 +56,7 @@ if (${CMAKE_VERSION} GREATER "3.13")
@@ -46,7 +45,7 @@ index c76713ab9..f5b8bd702 100644
    REQUIRED_HEADERS matio.h
    REQUIRED_LIBS_NAMES "matio")
 diff --git a/cmake/TPLs/FindTPLNetcdf.cmake b/cmake/TPLs/FindTPLNetcdf.cmake
-index 2c65d60bc..1a8bacf75 100644
+index 2c65d60bc3..1a8bacf75f 100644
 --- a/cmake/TPLs/FindTPLNetcdf.cmake
 +++ b/cmake/TPLs/FindTPLNetcdf.cmake
 @@ -55,7 +55,7 @@
@@ -62,14 +61,13 @@ index 2c65d60bc..1a8bacf75 100644
 +  INNER_FIND_PACKAGE_NAME NetCDF
 +  IMPORTED_TARGETS_FOR_ALL_LIBS NetCDF::NetCDF )
 diff --git a/cmake/TPLs/FindTPLZlib.cmake b/cmake/TPLs/FindTPLZlib.cmake
-index cc607e9d8..069a37c23 100644
+index cc607e9d8a..e8e0546063 100644
 --- a/cmake/TPLs/FindTPLZlib.cmake
 +++ b/cmake/TPLs/FindTPLZlib.cmake
-@@ -53,8 +53,8 @@
- # ************************************************************************
+@@ -54,7 +54,8 @@
  # @HEADER
  
--
+ 
 -TRIBITS_TPL_FIND_INCLUDE_DIRS_AND_LIBRARIES( Zlib
 -  REQUIRED_HEADERS zlib.h
 -  REQUIRED_LIBS_NAMES  z
@@ -79,79 +77,34 @@ index cc607e9d8..069a37c23 100644
 +  Zlib
 +  INNER_FIND_PACKAGE_NAME ZLIB
 +  IMPORTED_TARGETS_FOR_ALL_LIBS ZLIB::ZLIB )
-diff --git a/cmake/TPLs/FindTPLfmt.cmake b/cmake/TPLs/FindTPLfmt.cmake
-index c6ec212f9..e38054d9a 100644
---- a/cmake/TPLs/FindTPLfmt.cmake
-+++ b/cmake/TPLs/FindTPLfmt.cmake
-@@ -53,8 +53,8 @@
- # ************************************************************************
- # @HEADER
- 
--
--TRIBITS_TPL_FIND_INCLUDE_DIRS_AND_LIBRARIES( fmt
--  REQUIRED_HEADERS fmt/format.h
--  REQUIRED_LIBS_NAMES  fmt
--  )
-+find_package(fmt REQUIRED)
-+tribits_extpkg_create_imported_all_libs_target_and_config_file(
-+  fmt
-+  INNER_FIND_PACKAGE_NAME fmt
-+  IMPORTED_TARGETS_FOR_ALL_LIBS fmt::fmt )
 diff --git a/cmake/tribits/common_tpls/FindTPLCGNS.cmake b/cmake/tribits/common_tpls/FindTPLCGNS.cmake
-index 37c329cd4..9d221f64f 100644
+index 649ab49855..6a2d5e780f 100644
 --- a/cmake/tribits/common_tpls/FindTPLCGNS.cmake
 +++ b/cmake/tribits/common_tpls/FindTPLCGNS.cmake
-@@ -45,14 +45,14 @@ if ((CGNS_ALLOW_MODERN AND HDF5_FOUND_MODERN_CONFIG_FILE) OR CGNS_FORCE_MODERN)
+@@ -45,18 +45,14 @@ if ((CGNS_ALLOW_MODERN AND HDF5_FOUND_MODERN_CONFIG_FILE) OR CGNS_FORCE_MODERN)
    print_var(CGNS_ALLOW_MODERN)
    print_var(CGNS_FORCE_MODERN)
    message("-- Using find_package(CGNS ${minimum_modern_CGNS_version} CONFIG) ...")
--  find_package(CGNS ${minimum_modern_CGNS_version} CONFIG)
+-  find_package(CGNS ${minimum_modern_CGNS_version} CONFIG NAMES cgns)
 +  find_package(cgns CONFIG)
    if (CGNS_FOUND)
      message("-- Found CGNS_CONFIG=${CGNS_CONFIG}")
      message("-- Generating CGNS::all_libs and CGNSConfig.cmake")
+-    set(CGNS_TARGET CGNS::cgns_shared)
+-    if(NOT TARGET CGNS::cgns_shared)
+-      set(CGNS_TARGET CGNS::cgns_static)
+-    endif()
      tribits_extpkg_create_imported_all_libs_target_and_config_file(
        CGNS
 -      INNER_FIND_PACKAGE_NAME  CGNS
--      IMPORTED_TARGETS_FOR_ALL_LIBS   CGNS::cgns)
+-      IMPORTED_TARGETS_FOR_ALL_LIBS  ${CGNS_TARGET})
 +      INNER_FIND_PACKAGE_NAME  cgns
-+      IMPORTED_TARGETS_FOR_ALL_LIBS   CGNS::CGNS)
++      IMPORTED_TARGETS_FOR_ALL_LIBS  CGNS::CGNS)
      set(TPL_CGNS_NOT_FOUND FALSE)
    endif()
  
-diff --git a/cmake/tribits/common_tpls/FindTPLHDF5.cmake b/cmake/tribits/common_tpls/FindTPLHDF5.cmake
-index 716068c28..3d8fc8e76 100644
---- a/cmake/tribits/common_tpls/FindTPLHDF5.cmake
-+++ b/cmake/tribits/common_tpls/FindTPLHDF5.cmake
-@@ -9,7 +9,7 @@ if (Netcdf_ALLOW_MODERN)
-   set(minimum_modern_HDF5_version 1.10.2)
-   print_var(Netcdf_ALLOW_MODERN)
-   message("-- Using find_package(HDF5 ${minimum_modern_HDF5_version} CONFIG) ...")
--  find_package(HDF5  ${minimum_modern_HDF5_version}  CONFIG)
-+  find_package(HDF5)
-   if (HDF5_FOUND)
-     message("-- Found HDF5_CONFIG=${HDF5_CONFIG}")
-     message("-- Generating Netcdf::all_libs and NetcdfConfig.cmake")
-@@ -17,7 +17,7 @@ if (Netcdf_ALLOW_MODERN)
-     tribits_extpkg_create_imported_all_libs_target_and_config_file(
-       HDF5
-       INNER_FIND_PACKAGE_NAME  HDF5
--      IMPORTED_TARGETS_FOR_ALL_LIBS   ${HDF5_EXPORT_LIBRARIES})
-+      IMPORTED_TARGETS_FOR_ALL_LIBS  hdf5::hdf5)
-     set(HDF5_INTERNAL_IS_MODERN TRUE)
-   else()
-     message("-- Could not find HDF5_CONFIG (FindTPLHDF5.cmake)")
-@@ -27,7 +27,7 @@ endif()
- 
- set(HDF5_FOUND_MODERN_CONFIG_FILE ${HDF5_INTERNAL_IS_MODERN} CACHE INTERNAL "True if HDF5 was found by the modern method")
- 
--if (NOT TARGET HDF5::all_libs)
-+if (0)
- 
-   # First, set up the variables for the (backward-compatible) TriBITS way of
-   # finding HDF5.  These are used in case find_package(HDF5 ...) is not called
 diff --git a/cmake/tribits/common_tpls/find_modules/FindCGNS.cmake b/cmake/tribits/common_tpls/find_modules/FindCGNS.cmake
-index c2c98f4be..9626cdb92 100644
+index c2c98f4bee..9626cdb929 100644
 --- a/cmake/tribits/common_tpls/find_modules/FindCGNS.cmake
 +++ b/cmake/tribits/common_tpls/find_modules/FindCGNS.cmake
 @@ -180,7 +180,7 @@ else(CGNS_LIBRARIES AND CGNS_INCLUDE_DIRS)
@@ -182,10 +135,10 @@ index c2c98f4be..9626cdb92 100644
  
          endif()
 diff --git a/packages/seacas/libraries/aprepro_lib/CMakeLists.txt b/packages/seacas/libraries/aprepro_lib/CMakeLists.txt
-index ef391f1c6..a4869415b 100644
+index 13fcf791dd..44e30acdc2 100644
 --- a/packages/seacas/libraries/aprepro_lib/CMakeLists.txt
 +++ b/packages/seacas/libraries/aprepro_lib/CMakeLists.txt
-@@ -104,6 +104,10 @@ if (${CMAKE_PROJECT_NAME} STREQUAL "Seacas")
+@@ -106,6 +106,10 @@ if (${CMAKE_PROJECT_NAME} STREQUAL "Seacas")
     endif()
  endif()
  
@@ -195,22 +148,21 @@ index ef391f1c6..a4869415b 100644
 +
  if (${PACKAGE_NAME}_ENABLE_TESTS)
    TRIBITS_ADD_EXECUTABLE(aprepro_lib_test NOEXEPREFIX NOEXESUFFIX INSTALLABLE SOURCES apr_test.cc LINKER_LANGUAGE CXX)
- 
+   TRIBITS_ADD_EXECUTABLE(aprepro_strings_test NOEXEPREFIX NOEXESUFFIX INSTALLABLE SOURCES strings.cc LINKER_LANGUAGE CXX)
 diff --git a/packages/seacas/libraries/chaco/CMakeLists.txt b/packages/seacas/libraries/chaco/CMakeLists.txt
-index 5f43a4e0c..ff8570ce3 100644
+index 576abc8a84..c74d3a9bb7 100644
 --- a/packages/seacas/libraries/chaco/CMakeLists.txt
 +++ b/packages/seacas/libraries/chaco/CMakeLists.txt
-@@ -56,5 +56,7 @@ TRIBITS_ADD_LIBRARY(
-   HEADERS ${HEADERS}
+@@ -57,4 +57,7 @@ TRIBITS_ADD_LIBRARY(
    SOURCES ${SOURCES}
    )
--
+ 
 +if(BUILD_SHARED_LIBS)
 +    set_target_properties(chaco PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 +endif()
  TRIBITS_SUBPACKAGE_POSTPROCESS()
 diff --git a/packages/seacas/libraries/exodus/CMakeLists.txt b/packages/seacas/libraries/exodus/CMakeLists.txt
-index 2ed3ec4ab..f80f697f1 100644
+index d2be5f9fa8..999635814d 100644
 --- a/packages/seacas/libraries/exodus/CMakeLists.txt
 +++ b/packages/seacas/libraries/exodus/CMakeLists.txt
 @@ -13,6 +13,7 @@ FILE(GLOB SOURCES src/ex_*.c)
@@ -221,7 +173,7 @@ index 2ed3ec4ab..f80f697f1 100644
  TRIBITS_CONFIGURE_FILE(exodus_config.h)
  
  if (NOT ${EXODUS_THREADSAFE})
-@@ -32,6 +33,9 @@ TRIBITS_ADD_LIBRARY(
+@@ -33,6 +34,9 @@ TRIBITS_ADD_LIBRARY(
    HEADERS ${HEADERS}
    SOURCES ${SOURCES} ${DEP_SOURCES}
  )
@@ -230,12 +182,12 @@ index 2ed3ec4ab..f80f697f1 100644
 +endif()
  
  set_property(TARGET exodus PROPERTY C_STANDARD 99)
- 
+ set_property(TARGET exodus PROPERTY C_EXTENSIONS ON)
 diff --git a/packages/seacas/libraries/exodus/cmake/exodus_config.h.in b/packages/seacas/libraries/exodus/cmake/exodus_config.h.in
-index e4dcd51f2..a88254ab7 100644
+index c8e303978d..99baf34316 100644
 --- a/packages/seacas/libraries/exodus/cmake/exodus_config.h.in
 +++ b/packages/seacas/libraries/exodus/cmake/exodus_config.h.in
-@@ -4,4 +4,17 @@
+@@ -3,3 +3,15 @@
  
  @SEACAS_DEPRECATED_DECLARATIONS@
  
@@ -251,13 +203,11 @@ index e4dcd51f2..a88254ab7 100644
 +#else
 +#  define EXODUS_EXPORT extern
 +#endif
-+
- #endif
 diff --git a/packages/seacas/libraries/exodus/include/exodusII.h b/packages/seacas/libraries/exodus/include/exodusII.h
-index ce636683a..5caa88f45 100644
+index dd545b5ec7..7732a87e22 100644
 --- a/packages/seacas/libraries/exodus/include/exodusII.h
 +++ b/packages/seacas/libraries/exodus/include/exodusII.h
-@@ -715,7 +715,7 @@ ex_put_loadbal_param_cc(int             exoid,          /* NetCDF/Exodus file ID
+@@ -823,7 +823,7 @@ ex_put_loadbal_param_cc(int             exoid,          /* NetCDF/Exodus file ID
  );
  
  /* Utility function to replace strncpy, strcpy -- guarantee null termination */
@@ -266,63 +216,11 @@ index ce636683a..5caa88f45 100644
  
  /*!
   * \addtogroup ModelDescription
-diff --git a/packages/seacas/libraries/exodus/include/exodusII_int.h b/packages/seacas/libraries/exodus/include/exodusII_int.h
-index cec2d7555..e2a21f8d4 100644
---- a/packages/seacas/libraries/exodus/include/exodusII_int.h
-+++ b/packages/seacas/libraries/exodus/include/exodusII_int.h
-@@ -86,7 +86,7 @@ extern "C" {
- #define EX_FILE_ID_MASK (0xffff0000) /**< Must match FILE_ID_MASK in NetCDF nc4internal.h */
- #define EX_GRP_ID_MASK  (0x0000ffff) /**< Must match GRP_ID_MASK in NetCDF nc4internal.h */
- 
--void ex__reset_error_status(void);
-+EXODUS_EXPORT void ex__reset_error_status(void);
- 
- #if defined(EXODUS_THREADSAFE)
- #if !defined(exerrval)
-@@ -791,9 +791,9 @@ extern struct ex__obj_stats *exoII_edm;
- extern struct ex__obj_stats *exoII_fam;
- extern struct ex__obj_stats *exoII_nm;
- 
--struct ex__file_item *ex__find_file_item(int exoid);
--struct ex__file_item *ex__add_file_item(int exoid);
--struct ex__obj_stats *ex__get_stat_ptr(int exoid, struct ex__obj_stats **obj_ptr);
-+EXODUS_EXPORT struct ex__file_item *ex__find_file_item(int exoid);
-+EXODUS_EXPORT struct ex__file_item *ex__add_file_item(int exoid);
-+EXODUS_EXPORT struct ex__obj_stats *ex__get_stat_ptr(int exoid, struct ex__obj_stats **obj_ptr);
- 
- EXODUS_EXPORT void ex__rm_stat_ptr(int exoid, struct ex__obj_stats **obj_ptr);
- 
-diff --git a/packages/seacas/libraries/ioss/src/Ioss_StructuredBlock.h b/packages/seacas/libraries/ioss/src/Ioss_StructuredBlock.h
-index e7323b8ec..ec974dbc8 100644
---- a/packages/seacas/libraries/ioss/src/Ioss_StructuredBlock.h
-+++ b/packages/seacas/libraries/ioss/src/Ioss_StructuredBlock.h
-@@ -81,7 +81,7 @@ namespace Ioss {
-       archive(m_bcName, m_famName, m_rangeBeg, m_rangeEnd, m_face);
-     }
- 
--    friend std::ostream &operator<<(std::ostream &os, const BoundaryCondition &bc);
-+    friend IOSS_EXPORT std::ostream &operator<<(std::ostream &os, const BoundaryCondition &bc);
- 
-   private:
-     bool equal_(const Ioss::BoundaryCondition &rhs, bool quiet) const;
-diff --git a/packages/seacas/libraries/ioss/src/Ioss_ZoneConnectivity.h b/packages/seacas/libraries/ioss/src/Ioss_ZoneConnectivity.h
-index 015cc51d3..97bec74b0 100644
---- a/packages/seacas/libraries/ioss/src/Ioss_ZoneConnectivity.h
-+++ b/packages/seacas/libraries/ioss/src/Ioss_ZoneConnectivity.h
-@@ -86,7 +86,7 @@ namespace Ioss {
-     Ioss::IJK_t                inverse_transform(const Ioss::IJK_t &index_1) const;
- 
-     std::vector<int>     get_range(int ordinal) const;
--    friend std::ostream &operator<<(std::ostream &os, const ZoneConnectivity &zgc);
-+    friend IOSS_EXPORT std::ostream &operator<<(std::ostream &os, const ZoneConnectivity &zgc);
- 
-     /* COMPARE two ZoneConnectivity objects  */
-     bool operator==(const Ioss::ZoneConnectivity &rhs) const;
 diff --git a/packages/seacas/libraries/ioss/src/text_mesh/Iotm_TextMesh.C b/packages/seacas/libraries/ioss/src/text_mesh/Iotm_TextMesh.C
-index 872050daa..a3a0baf9f 100644
+index 51d6490033..6187dfa0ab 100644
 --- a/packages/seacas/libraries/ioss/src/text_mesh/Iotm_TextMesh.C
 +++ b/packages/seacas/libraries/ioss/src/text_mesh/Iotm_TextMesh.C
-@@ -51,12 +51,6 @@ namespace Iotm {
+@@ -124,12 +124,6 @@ namespace Iotm {
      initialize();
    }
  
@@ -336,58 +234,57 @@ index 872050daa..a3a0baf9f 100644
  
    void TextMesh::initialize()
 diff --git a/packages/seacas/libraries/ioss/src/text_mesh/Iotm_TextMesh.h b/packages/seacas/libraries/ioss/src/text_mesh/Iotm_TextMesh.h
-index 530b51e62..73ea2a5c6 100644
+index 7de47932e6..2d0570dda0 100644
 --- a/packages/seacas/libraries/ioss/src/text_mesh/Iotm_TextMesh.h
 +++ b/packages/seacas/libraries/ioss/src/text_mesh/Iotm_TextMesh.h
-@@ -58,7 +58,6 @@ namespace Iotm {
-   public:
-     explicit TextMesh(const std::string &parameters, int proc_count = 1, int my_proc = 0);
-     TextMesh(int proc_count = 1, int my_proc = 0);
+@@ -66,7 +66,6 @@ namespace Iotm {
+     explicit TextMesh(const std::string &parameters, IOSS_MAYBE_UNUSED int proc_count = 1,
+                       int my_proc = 0);
+     explicit TextMesh(int proc_count = 1, int my_proc = 0);
 -    TextMesh();
      TextMesh(const TextMesh &)            = delete;
      TextMesh &operator=(const TextMesh &) = delete;
  
 diff --git a/packages/seacas/libraries/nemesis/CMakeLists.txt b/packages/seacas/libraries/nemesis/CMakeLists.txt
-index 154cf9e9e..ab5d87daa 100644
+index b03a9e9a96..19a9155d73 100644
 --- a/packages/seacas/libraries/nemesis/CMakeLists.txt
 +++ b/packages/seacas/libraries/nemesis/CMakeLists.txt
-@@ -1,5 +1,5 @@
+@@ -1,5 +1,6 @@
  TRIBITS_SUBPACKAGE(Nemesis)
--
+ 
 +set(NEMESIS_BUILD_SHARED_LIBS "${BUILD_SHARED_LIBS}" CACHE BOOL "")
  SET(NEMESIS_VERSION_MAJOR "5")
  SET(NEMESIS_VERSION_MINOR "15")
  SET(NEMESIS_VERSION_PATCH "0")
-@@ -27,7 +27,7 @@ TRIBITS_ADD_LIBRARY(
-   HEADERS ${HEADERS}
-   SOURCES ${SOURCES}
+@@ -29,6 +30,7 @@ TRIBITS_ADD_LIBRARY(
    )
--
+ 
+ IF (${PACKAGE_NAME}_ENABLE_TESTS)
 +target_compile_definitions(nemesis PRIVATE nemc_EXPORTS)
  TRIBITS_ADD_EXECUTABLE_AND_TEST(
    ne_ctest_wrap
    NAME ne_ctest_wrap
 diff --git a/packages/seacas/libraries/nemesis/ne_nemesisI.h b/packages/seacas/libraries/nemesis/ne_nemesisI.h
-index dc78c2fe4..ae43c1f3f 100644
+index f07b316f99..770235c83b 100644
 --- a/packages/seacas/libraries/nemesis/ne_nemesisI.h
 +++ b/packages/seacas/libraries/nemesis/ne_nemesisI.h
-@@ -14,6 +14,8 @@
- #ifndef _NE_NEMESIS_H
- #define _NE_NEMESIS_H
+@@ -12,6 +12,8 @@
+  ****************************************************************************/
+ #pragma once
  
 +#include "nemesis_cfg.h"
 +
  #ifdef __cplusplus
  extern "C" {
  #endif
-@@ -34,24 +36,24 @@ typedef void void_int;
+@@ -33,24 +35,24 @@ typedef void void_int;
  /*=============================================================================
   *     Initial Information Routines
   *===========================================================================*/
 -extern int ne_get_init_info(int   neid,          /* NemesisI file ID */
 +NEMESIS_EXPORT int ne_get_init_info(int   neid,          /* NemesisI file ID */
-                             int * num_proc,      /* Number of processors */
-                             int * num_proc_in_f, /* Number of procs in this file */
+                             int  *num_proc,      /* Number of processors */
+                             int  *num_proc_in_f, /* Number of procs in this file */
                              char *ftype);
  
 -extern int ne_put_init_info(int   neid,          /* NemesisI file ID */
@@ -409,7 +306,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                int64_t num_nodes_g,     /* Number of global FEM nodes */
                                int64_t num_elems_g,     /* Number of global FEM elements */
                                int64_t num_elem_blks_g, /* Number of global elem blocks */
-@@ -59,12 +61,12 @@ extern int ne_put_init_global(int     neid,            /* NemesisI file ID */
+@@ -58,12 +60,12 @@ extern int ne_put_init_global(int     neid,            /* NemesisI file ID */
                                int64_t num_side_sets_g  /* Number of global side sets */
  );
  
@@ -424,7 +321,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                  void_int *num_int_nodes,  /* Number of internal FEM nodes */
                                  void_int *num_bor_nodes,  /* Number of border FEM nodes */
                                  void_int *num_ext_nodes,  /* Number of external FEM nodes */
-@@ -75,7 +77,7 @@ extern int ne_get_loadbal_param(int       neid,           /* NetCDF/Exodus file
+@@ -74,7 +76,7 @@ extern int ne_get_loadbal_param(int       neid,           /* NetCDF/Exodus file
                                  int       processor       /* Processor ID */
  );
  
@@ -433,7 +330,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                  int64_t num_int_nodes,  /* Number of internal FEM nodes */
                                  int64_t num_bor_nodes,  /* Number of border FEM nodes */
                                  int64_t num_ext_nodes,  /* Number of external FEM nodes */
-@@ -86,7 +88,7 @@ extern int ne_put_loadbal_param(int     neid,           /* NemesisI file ID  */
+@@ -85,7 +87,7 @@ extern int ne_put_loadbal_param(int     neid,           /* NemesisI file ID  */
                                  int     processor       /* Processor ID */
  );
  
@@ -442,7 +339,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                     void_int *num_int_nodes,  /* Number of internal node IDs */
                                     void_int *num_bor_nodes,  /* Number of border node IDs */
                                     void_int *num_ext_nodes,  /* Number of external node IDs */
-@@ -99,26 +101,26 @@ extern int ne_put_loadbal_param_cc(int       neid,           /* NetCDF/Exodus fi
+@@ -98,26 +100,26 @@ extern int ne_put_loadbal_param_cc(int       neid,           /* NetCDF/Exodus fi
  /*=============================================================================
   *     NS, SS & EB Global Parameter Routines
   *===========================================================================*/
@@ -473,7 +370,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                    void_int *global_ids,     /* Vector of global side-set IDs */
                                    void_int *global_el_cnts, /* Vector of element/side */
                                                              /* counts in each side set */
-@@ -126,12 +128,12 @@ extern int ne_put_ss_param_global(int       neid,           /* NemesisI file ID
+@@ -125,12 +127,12 @@ extern int ne_put_ss_param_global(int       neid,           /* NemesisI file ID
                                                              /* counts in each side set */
  );
  
@@ -488,7 +385,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                   void_int *el_blk_ids, /* Vector of global element IDs     */
                                   void_int *el_blk_cnts /* Vector of global element counts  */
  );
-@@ -139,7 +141,7 @@ extern int ne_put_eb_info_global(int       neid,       /* NemesisI file ID */
+@@ -138,7 +140,7 @@ extern int ne_put_eb_info_global(int       neid,       /* NemesisI file ID */
  /*=============================================================================
   *     NS, SS & EB Subset Routines
   *===========================================================================*/
@@ -497,8 +394,8 @@ index dc78c2fe4..ae43c1f3f 100644
                               ex_entity_id side_set_id,        /* Side-set ID to read */
                               int64_t      start_side_num,     /* Starting element number */
                               int64_t      num_sides,          /* Number of sides to read */
-@@ -147,7 +149,7 @@ extern int ne_get_n_side_set(int          neid,               /* NetCDF/Exodus f
-                              void_int *   side_set_side_list  /* List of side IDs */
+@@ -146,7 +148,7 @@ extern int ne_get_n_side_set(int          neid,               /* NetCDF/Exodus f
+                              void_int    *side_set_side_list  /* List of side IDs */
  );
  
 -extern int ne_put_n_side_set(int             neid,               /* NetCDF/Exodus file ID */
@@ -506,7 +403,7 @@ index dc78c2fe4..ae43c1f3f 100644
                               ex_entity_id    side_set_id,        /* Side-set ID to write */
                               int64_t         start_side_num,     /* Starting element number */
                               int64_t         num_sides,          /* Number of sides to write */
-@@ -155,49 +157,49 @@ extern int ne_put_n_side_set(int             neid,               /* NetCDF/Exodu
+@@ -154,49 +156,49 @@ extern int ne_put_n_side_set(int             neid,               /* NetCDF/Exodu
                               const void_int *side_set_side_list  /* List of side IDs */
  );
  
@@ -515,7 +412,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                  ex_entity_id side_set_id,   /* Side-set ID */
                                  int64_t      start_num,     /* Starting df number */
                                  int64_t      num_df_to_get, /* Number of df's to read */
-                                 void *       side_set_df    /* Distribution factors */
+                                 void        *side_set_df    /* Distribution factors */
  );
  
 -extern int ne_put_n_side_set_df(int          neid,          /* NetCDF/Exodus file ID */
@@ -523,7 +420,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                  ex_entity_id side_set_id,   /* Side-set ID */
                                  int64_t      start_num,     /* Starting df number */
                                  int64_t      num_df_to_get, /* Number of df's to write */
-                                 void *       side_set_df    /* Distribution factors */
+                                 void        *side_set_df    /* Distribution factors */
  );
  
 -extern int ne_get_n_node_set(int          neid,              /* NetCDF/Exodus file ID */
@@ -531,7 +428,7 @@ index dc78c2fe4..ae43c1f3f 100644
                               ex_entity_id node_set_id,       /* Node set ID */
                               int64_t      start_node_num,    /* Node index to start reading at */
                               int64_t      num_node,          /* Number of nodes to read */
-                              void_int *   node_set_node_list /* List of nodes in node set */
+                              void_int    *node_set_node_list /* List of nodes in node set */
  );
  
 -extern int ne_put_n_node_set(int             neid,              /* NetCDF/Exodus file ID */
@@ -547,7 +444,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                  ex_entity_id node_set_id,   /* Node-set ID */
                                  int64_t      start_num,     /* Starting df number */
                                  int64_t      num_df_to_get, /* Number of df's to read */
-                                 void *       node_set_df    /* Distribution factors */
+                                 void        *node_set_df    /* Distribution factors */
  );
  
 -extern int ne_put_n_node_set_df(int          neid,          /* NetCDF/Exodus file ID */
@@ -555,25 +452,25 @@ index dc78c2fe4..ae43c1f3f 100644
                                  ex_entity_id node_set_id,   /* Node-set ID */
                                  int64_t      start_num,     /* Starting df number */
                                  int64_t      num_df_to_get, /* Number of df's to write */
-                                 void *       node_set_df    /* Distribution factors */
+                                 void        *node_set_df    /* Distribution factors */
  );
  
 -extern int ne_get_n_coord(int     neid,           /* NetCDF/Exodus file ID */
 +NEMESIS_EXPORT int ne_get_n_coord(int     neid,           /* NetCDF/Exodus file ID */
                            int64_t start_node_num, /* Starting position to read from */
                            int64_t num_nodes,      /* Number of coords to read */
-                           void *  x_coor,         /* Vector of X coordinates */
-@@ -205,7 +207,7 @@ extern int ne_get_n_coord(int     neid,           /* NetCDF/Exodus file ID */
-                           void *  z_coor          /* Vector of Z coordinates */
+                           void   *x_coor,         /* Vector of X coordinates */
+@@ -204,7 +206,7 @@ extern int ne_get_n_coord(int     neid,           /* NetCDF/Exodus file ID */
+                           void   *z_coor          /* Vector of Z coordinates */
  );
  
 -extern int ne_put_n_coord(int     neid,           /* NetCDF/Exodus file ID */
 +NEMESIS_EXPORT int ne_put_n_coord(int     neid,           /* NetCDF/Exodus file ID */
                            int64_t start_node_num, /* Starting position to write to */
                            int64_t num_nodes,      /* Number of coords to write */
-                           void *  x_coor,         /* Vector of X coordinates */
-@@ -213,35 +215,35 @@ extern int ne_put_n_coord(int     neid,           /* NetCDF/Exodus file ID */
-                           void *  z_coor          /* Vector of Z coordinates */
+                           void   *x_coor,         /* Vector of X coordinates */
+@@ -212,35 +214,35 @@ extern int ne_put_n_coord(int     neid,           /* NetCDF/Exodus file ID */
+                           void   *z_coor          /* Vector of Z coordinates */
  );
  
 -extern int ne_get_n_elem_conn(int          neid,           /* NetCDF/Exodus file ID */
@@ -581,7 +478,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                ex_entity_id elem_blk_id,    /* Element block ID */
                                int64_t      start_elem_num, /* Starting position to read from */
                                int64_t      num_elems,      /* Number of elements to read */
-                               void_int *   connect         /* Connectivity vector */
+                               void_int    *connect         /* Connectivity vector */
  );
  
 -extern int ne_put_n_elem_conn(int             neid,           /* NetCDF/Exodus file ID */
@@ -597,7 +494,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                ex_entity_id elem_blk_id,    /* Element block ID */
                                int64_t      start_elem_num, /* Starting position to read from */
                                int64_t      num_elems,      /* Number of elements to read */
-                               void *       attrib          /* Attribute */
+                               void        *attrib          /* Attribute */
  );
  
 -extern int ne_put_n_elem_attr(int          neid,           /* NetCDF/Exodus file ID */
@@ -605,15 +502,15 @@ index dc78c2fe4..ae43c1f3f 100644
                                ex_entity_id elem_blk_id,    /* Element block ID */
                                int64_t      start_elem_num, /* Starting position to write to */
                                int64_t      num_elems,      /* Number of elements to write */
-                               void *       attrib          /* Attribute */
+                               void        *attrib          /* Attribute */
  );
  
 -extern int ne_get_elem_type(int          neid,        /* NetCDF/Exodus file ID */
 +NEMESIS_EXPORT int ne_get_elem_type(int          neid,        /* NetCDF/Exodus file ID */
                              ex_entity_id elem_blk_id, /* Element block ID */
-                             char *       elem_type    /* The name of the element type */
+                             char        *elem_type    /* The name of the element type */
  );
-@@ -249,7 +251,7 @@ extern int ne_get_elem_type(int          neid,        /* NetCDF/Exodus file ID *
+@@ -248,7 +250,7 @@ extern int ne_get_elem_type(int          neid,        /* NetCDF/Exodus file ID *
  /*=============================================================================
   *     Variable Routines
   *===========================================================================*/
@@ -622,8 +519,8 @@ index dc78c2fe4..ae43c1f3f 100644
                               int          time_step,         /* time index */
                               int          elem_var_index,    /* elemental variable index */
                               ex_entity_id elem_blk_id,       /* elemental block id */
-@@ -259,7 +261,7 @@ extern int ne_get_n_elem_var(int          neid,              /* NetCDF/Exodus fi
-                              void *       elem_var_vals      /* variable values */
+@@ -258,7 +260,7 @@ extern int ne_get_n_elem_var(int          neid,              /* NetCDF/Exodus fi
+                              void        *elem_var_vals      /* variable values */
  );
  
 -extern int ne_put_elem_var_slab(int          neid,           /* NetCDF/Exodus file ID */
@@ -631,8 +528,8 @@ index dc78c2fe4..ae43c1f3f 100644
                                  int          time_step,      /* time index */
                                  int          elem_var_index, /* elemental variable index */
                                  ex_entity_id elem_blk_id,    /* elemental block id */
-@@ -268,7 +270,7 @@ extern int ne_put_elem_var_slab(int          neid,           /* NetCDF/Exodus fi
-                                 void *       elem_var_vals   /* variable values */
+@@ -267,7 +269,7 @@ extern int ne_put_elem_var_slab(int          neid,           /* NetCDF/Exodus fi
+                                 void        *elem_var_vals   /* variable values */
  );
  
 -extern int ne_get_n_nodal_var(int     neid,            /* NetCDF/Exodus file ID */
@@ -640,8 +537,8 @@ index dc78c2fe4..ae43c1f3f 100644
                                int     time_step,       /* whole time step number */
                                int     nodal_var_index, /* index of desired nodal var */
                                int64_t start_node_num,  /* starting node number */
-@@ -276,7 +278,7 @@ extern int ne_get_n_nodal_var(int     neid,            /* NetCDF/Exodus file ID
-                               void *  nodal_vars       /* array of nodal var values */
+@@ -275,7 +277,7 @@ extern int ne_get_n_nodal_var(int     neid,            /* NetCDF/Exodus file ID
+                               void   *nodal_vars       /* array of nodal var values */
  );
  
 -extern int ne_put_nodal_var_slab(int     neid,            /* NetCDF/Exodus file ID */
@@ -649,7 +546,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                   int     time_step,       /* The time step index */
                                   int     nodal_var_index, /* Nodal variable index */
                                   int64_t start_pos,       /* Start position for write */
-@@ -287,51 +289,51 @@ extern int ne_put_nodal_var_slab(int     neid,            /* NetCDF/Exodus file
+@@ -286,51 +288,51 @@ extern int ne_put_nodal_var_slab(int     neid,            /* NetCDF/Exodus file
  /*=============================================================================
   *     Number Map Routines
   *===========================================================================*/
@@ -709,7 +606,7 @@ index dc78c2fe4..ae43c1f3f 100644
                             void_int *elem_mapi, /* Internal FEM element IDs */
                             void_int *elem_mapb, /* Border FEM element IDs */
                             int       processor  /* This processor ID */
-@@ -341,7 +343,7 @@ extern int ne_put_elem_map(int       neid,      /* NetCDF/Exodus file ID */
+@@ -340,7 +342,7 @@ extern int ne_put_elem_map(int       neid,      /* NetCDF/Exodus file ID */
   *     Communications Maps Routines
   *===========================================================================*/
  
@@ -718,7 +615,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                void_int *node_cmap_ids,       /* Nodal comm. map IDs */
                                void_int *node_cmap_node_cnts, /* Number of nodes in each map */
                                void_int *elem_cmap_ids,       /* Elemental comm. map IDs */
-@@ -349,7 +351,7 @@ extern int ne_get_cmap_params(int       neid,                /* NetCDF/Exodus fi
+@@ -348,7 +350,7 @@ extern int ne_get_cmap_params(int       neid,                /* NetCDF/Exodus fi
                                int       processor            /* This processor ID */
  );
  
@@ -727,7 +624,7 @@ index dc78c2fe4..ae43c1f3f 100644
                                void_int *node_map_ids,       /* Node map IDs */
                                void_int *node_map_node_cnts, /* Nodes in nodal comm */
                                void_int *elem_map_ids,       /* Elem map IDs */
-@@ -357,7 +359,7 @@ extern int ne_put_cmap_params(int       neid,               /* NetCDF/Exodus fil
+@@ -356,7 +358,7 @@ extern int ne_put_cmap_params(int       neid,               /* NetCDF/Exodus fil
                                int64_t   processor           /* This processor ID */
  );
  
@@ -736,46 +633,46 @@ index dc78c2fe4..ae43c1f3f 100644
                                   void_int *node_map_ids,       /* Node map IDs */
                                   void_int *node_map_node_cnts, /* Nodes in nodal comm */
                                   void_int *node_proc_ptrs,     /* Pointer into array for */
-@@ -368,21 +370,21 @@ extern int ne_put_cmap_params_cc(int       neid,               /* NetCDF/Exodus
+@@ -367,21 +369,21 @@ extern int ne_put_cmap_params_cc(int       neid,               /* NetCDF/Exodus
                                                                 /* elem maps               */
  );
  
 -extern int ne_get_node_cmap(int          neid,     /* NetCDF/Exodus file ID */
 +NEMESIS_EXPORT int ne_get_node_cmap(int          neid,     /* NetCDF/Exodus file ID */
                              ex_entity_id map_id,   /* Map ID */
-                             void_int *   node_ids, /* FEM node IDs */
-                             void_int *   proc_ids, /* Processor IDs */
+                             void_int    *node_ids, /* FEM node IDs */
+                             void_int    *proc_ids, /* Processor IDs */
                              int          processor /* This processor ID */
  );
  
 -extern int ne_put_node_cmap(int          neid,     /* NetCDF/Exodus file ID */
 +NEMESIS_EXPORT int ne_put_node_cmap(int          neid,     /* NetCDF/Exodus file ID */
                              ex_entity_id map_id,   /* Nodal comm map ID */
-                             void_int *   node_ids, /* FEM node IDs */
-                             void_int *   proc_ids, /* Processor IDs */
+                             void_int    *node_ids, /* FEM node IDs */
+                             void_int    *proc_ids, /* Processor IDs */
                              int          processor /* This processor ID */
  );
  
 -extern int ne_get_elem_cmap(int          neid,     /* NetCDF/Exodus file ID */
 +NEMESIS_EXPORT int ne_get_elem_cmap(int          neid,     /* NetCDF/Exodus file ID */
                              ex_entity_id map_id,   /* Elemental comm map ID */
-                             void_int *   elem_ids, /* Element IDs */
-                             void_int *   side_ids, /* Element side IDs */
-@@ -390,7 +392,7 @@ extern int ne_get_elem_cmap(int          neid,     /* NetCDF/Exodus file ID */
+                             void_int    *elem_ids, /* Element IDs */
+                             void_int    *side_ids, /* Element side IDs */
+@@ -389,7 +391,7 @@ extern int ne_get_elem_cmap(int          neid,     /* NetCDF/Exodus file ID */
                              int          processor /* This processor ID */
  );
  
 -extern int ne_put_elem_cmap(int          neid,     /* NetCDF/Exodus file ID */
 +NEMESIS_EXPORT int ne_put_elem_cmap(int          neid,     /* NetCDF/Exodus file ID */
                              ex_entity_id map_id,   /* Elemental comm map ID */
-                             void_int *   elem_ids, /* Vector of element IDs */
-                             void_int *   side_ids, /* Vector of side IDs */
+                             void_int    *elem_ids, /* Vector of element IDs */
+                             void_int    *side_ids, /* Vector of side IDs */
 diff --git a/packages/seacas/libraries/nemesis/nemesis_cfg.h.in b/packages/seacas/libraries/nemesis/nemesis_cfg.h.in
-index 37b04f5cd..05f2db341 100644
+index b3a53a7647..517fb96975 100755
 --- a/packages/seacas/libraries/nemesis/nemesis_cfg.h.in
 +++ b/packages/seacas/libraries/nemesis/nemesis_cfg.h.in
 @@ -1,8 +1,8 @@
--# Copyright(C) 1999-2020 National Technology & Engineering Solutions
+-# Copyright(C) 1999-2020, 2022 National Technology & Engineering Solutions
 -# of Sandia, LLC (NTESS).  Under the terms of Contract DE-NA0003525 with
 -# NTESS, the U.S. Government retains certain rights in this software.
 -#
@@ -785,31 +682,29 @@ index 37b04f5cd..05f2db341 100644
 +// NTESS, the U.S. Government retains certain rights in this software.
 +//
 +// See packages/seacas/LICENSE for details
+ #pragma once
  
- #ifndef __nemesis_cfg_h
- #define __nemesis_cfg_h
+ #define NEMESIS_VERSION_MAJOR @NEMESIS_VERSION_MAJOR@
 diff --git a/packages/seacas/libraries/suplib_c/CMakeLists.txt b/packages/seacas/libraries/suplib_c/CMakeLists.txt
-index c5c0d0fd3..b047ea4cd 100644
+index 52f7c57f63..0e1b3965c3 100644
 --- a/packages/seacas/libraries/suplib_c/CMakeLists.txt
 +++ b/packages/seacas/libraries/suplib_c/CMakeLists.txt
-@@ -29,5 +29,7 @@ TRIBITS_ADD_LIBRARY(
-   NOINSTALLHEADERS
+@@ -30,4 +30,7 @@ TRIBITS_ADD_LIBRARY(
    SOURCES ${SOURCES}
    )
--
+ 
 +if(BUILD_SHARED_LIBS)
 +    set_target_properties(suplib_c PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 +endif()
  TRIBITS_SUBPACKAGE_POSTPROCESS()
 diff --git a/packages/seacas/libraries/suplib_cpp/CMakeLists.txt b/packages/seacas/libraries/suplib_cpp/CMakeLists.txt
-index 5eb15b5a7..640b2a8b9 100644
+index c9f1d5704c..ca5ef5be37 100644
 --- a/packages/seacas/libraries/suplib_cpp/CMakeLists.txt
 +++ b/packages/seacas/libraries/suplib_cpp/CMakeLists.txt
-@@ -30,5 +30,7 @@ TRIBITS_ADD_LIBRARY(
-   NOINSTALLHEADERS
+@@ -31,4 +31,7 @@ TRIBITS_ADD_LIBRARY(
    SOURCES ${SOURCES}
    )
--
+ 
 +if(BUILD_SHARED_LIBS)
 +    set_target_properties(suplib_cpp PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 +endif()
