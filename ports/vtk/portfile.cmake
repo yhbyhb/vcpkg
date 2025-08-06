@@ -28,12 +28,10 @@ vcpkg_from_github(
         cgns.patch
         vtkm.patch
         afxdll.patch
-        vtkioss.patch
         jsoncpp.patch
         fast-float.patch
         devendor_exodusII.patch
         remove-prefix-changes.patch
-        octree.patch
 )
 
 # =============================================================================
