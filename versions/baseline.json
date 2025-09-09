@@ -8725,8 +8725,8 @@
       "port-version": 1
     },
     "seacas": {
-      "baseline": "2022-11-22",
-      "port-version": 9
+      "baseline": "2024-06-27",
+      "port-version": 0
     },
     "seal": {
       "baseline": "4.1.2",
