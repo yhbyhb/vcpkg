@@ -32,20 +32,11 @@ vcpkg_from_github(
         afxdll.patch
         vtkioss.patch
         jsoncpp.patch
-        iotr.patch
         fast-float.patch
-        fix-exprtk.patch # just for dbow2 and theia
         devendor_exodusII.patch
         remove-prefix-changes.patch
-        hdf5helper.patch
-        opencascade-7.8.0.patch
-        no-libharu-for-ioexport.patch
-        no-libproj-for-netcdf.patch
-        octree.patch
-        fix-tbbsmptool.patch  # https://gitlab.kitware.com/vtk/vtk/-/merge_requests/11530
         backport-bda8324.diff # https://gitlab.kitware.com/vtk/vtk/-/merge_requests/12418
         use-compile-tools.diff
-        zspace.diff # https://gitlab.kitware.com/vtk/vtk/-/commit/01a8bd7a917d33892f67a8d76ce7fc4b524d56b4
 )
 
 # =============================================================================
