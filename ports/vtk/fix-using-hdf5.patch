@@ -1,5 +1,5 @@
 diff --git a/ThirdParty/h5part/vtkh5part/src/H5Part.c b/ThirdParty/h5part/vtkh5part/src/H5Part.c
-index 228d246..41af04d 100644
+index 48b14e16694..5459150668e 100644
 --- a/ThirdParty/h5part/vtkh5part/src/H5Part.c
 +++ b/ThirdParty/h5part/vtkh5part/src/H5Part.c
 @@ -2092,7 +2092,7 @@ _H5Part_iteration_operator2 (

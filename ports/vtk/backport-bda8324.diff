@@ -1,7 +1,7 @@
-diff --git a/Parallel/Core/vtkThreadedCallbackQueue.txx b/Parallel/Core/vtkThreadedCallbackQueue.txx
-index 8f5a4414..fd55136d 100644
---- a/Parallel/Core/vtkThreadedCallbackQueue.txx
-+++ b/Parallel/Core/vtkThreadedCallbackQueue.txx
+diff --git a/Common/Core/vtkThreadedCallbackQueue.txx b/Common/Core/vtkThreadedCallbackQueue.txx
+index b212e0adb79..71e8957f4a3 100644
+--- a/Common/Core/vtkThreadedCallbackQueue.txx
++++ b/Common/Core/vtkThreadedCallbackQueue.txx
 @@ -275,7 +275,7 @@ template <class T>
  struct vtkThreadedCallbackQueue::InvokerImpl::DereferenceImpl<T,
    std::true_type /* CanBeDereferencedT */>

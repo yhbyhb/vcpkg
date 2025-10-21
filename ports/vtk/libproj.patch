@@ -1,8 +1,8 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index d477f8b..375a2a2 100644
+index e9663f0d61e..a70362f5d62 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -389,7 +389,6 @@ endif ()
+@@ -501,7 +501,6 @@ endif ()
  # Handle the requirement of `sqlitebin` for `proj`.
  set(vtk_sqlite_build_binary 0)
  if ("VTK::libproj" IN_LIST vtk_modules)
@@ -11,11 +11,10 @@ index d477f8b..375a2a2 100644
  
  cmake_dependent_option(VTK_ENABLE_KITS "Enable kits compilation" OFF
 diff --git a/ThirdParty/libproj/CMakeLists.txt b/ThirdParty/libproj/CMakeLists.txt
-index f8888876..d57c4c18 100644
+index cea568e1232..05f85fbdb96 100644
 --- a/ThirdParty/libproj/CMakeLists.txt
 +++ b/ThirdParty/libproj/CMakeLists.txt
-@@ -4,11 +4,13 @@ vtk_module_third_party(
-     VERSION
+@@ -12,10 +12,12 @@ vtk_module_third_party(
        "8.1.0"
      STANDARD_INCLUDE_DIRS
    EXTERNAL
@@ -32,10 +31,10 @@ index f8888876..d57c4c18 100644
  if (NOT VTK_MODULE_USE_EXTERNAL_VTK_libproj)
    set(LibPROJ_MAJOR_VERSION "8")
 diff --git a/ThirdParty/libproj/vtk.module b/ThirdParty/libproj/vtk.module
-index e49d988f..bb2d22e7 100644
+index 1f913cd290f..c3fe44c5526 100644
 --- a/ThirdParty/libproj/vtk.module
 +++ b/ThirdParty/libproj/vtk.module
-@@ -6,8 +6,4 @@ SPDX_LICENSE_IDENTIFIER
+@@ -6,10 +6,6 @@ SPDX_LICENSE_IDENTIFIER
    BSD-3-Clause
  SPDX_COPYRIGHT_TEXT
    Copyright (c) Ken Martin, Will Schroeder, Bill Lorensen
@@ -43,4 +42,6 @@ index e49d988f..bb2d22e7 100644
 -  VTK::nlohmannjson
 -PRIVATE_DEPENDS
 -  VTK::sqlite
+ TEST_DEPENDS
+   VTK::TestingCore
  THIRD_PARTY

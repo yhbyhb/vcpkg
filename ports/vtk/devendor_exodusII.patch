@@ -1,5 +1,5 @@
 diff --git a/ThirdParty/exodusII/CMakeLists.txt b/ThirdParty/exodusII/CMakeLists.txt
-index 7a0cefb..3139114 100644
+index 79d7091e86f..cb070e6ceca 100644
 --- a/ThirdParty/exodusII/CMakeLists.txt
 +++ b/ThirdParty/exodusII/CMakeLists.txt
 @@ -1,20 +1,27 @@
@@ -11,9 +11,9 @@ index 7a0cefb..3139114 100644
 -  SPDX_COPYRIGHT_TEXT
 -    "Copyright (c) 2005-2017 National Technology & Engineering Solutions of Sandia, LLC (NTESS)"
 -  SPDX_DOWNLOAD_LOCATION
--    "git+https://gitlab.kitware.com/third-party/seacas.git@exodus/for/vtk-20220706-v2021-05-12#packages/seacas/libraries/exodus"
+-    "git+https://gitlab.kitware.com/third-party/seacas.git@exodus/for/vtk-20240826-master-gaeee5aa1#packages/seacas/libraries/exodus"
 -  VERSION
--    "8.11f"
+-    "9.3f"
 -  STANDARD_INCLUDE_DIRS)
 +vtk_module_third_party(
 +  INTERNAL
@@ -24,10 +24,10 @@ index 7a0cefb..3139114 100644
 +    SPDX_COPYRIGHT_TEXT
 +      "Copyright (c) 2005-2017 National Technology & Engineering Solutions of Sandia, LLC (NTESS)"
 +    SPDX_DOWNLOAD_LOCATION
-+      "git+https://gitlab.kitware.com/third-party/seacas.git@exodus/for/vtk-20220706-v2021-05-12#packages/seacas/libraries/exodus"
++      "git+https://gitlab.kitware.com/third-party/seacas.git@exodus/for/vtk-20240826-master-gaeee5aa1#packages/seacas/libraries/exodus"
 +    VERSION
-+      "8.11f"
-+    STANDARD_INCLUDE_DIRS
++      "9.3f"
++    STANDARD_INCLUDE_DIR
 +  EXTERNAL
 +    PACKAGE SEACASExodus
 +    CONFIG_MODE
@@ -49,7 +49,7 @@ index 7a0cefb..3139114 100644
 +#  FILES "${CMAKE_CURRENT_SOURCE_DIR}/vtk_exodusII.h")
 diff --git a/ThirdParty/exodusII/vtk_exodusII.h.in b/ThirdParty/exodusII/vtk_exodusII.h.in
 new file mode 100644
-index 0000000..ac2ab78
+index 00000000000..7f5abc5bc89
 --- /dev/null
 +++ b/ThirdParty/exodusII/vtk_exodusII.h.in
 @@ -0,0 +1,15 @@
@@ -58,13 +58,39 @@ index 0000000..ac2ab78
 +#ifndef vtk_exodusII_h
 +#define vtk_exodusII_h
 +
-+/* Use the libproj library configured for VTK.  */
++/* Use the exodusII library configured for VTK.  */
 +#cmakedefine01 VTK_MODULE_USE_EXTERNAL_vtkexodusII
 +
 +#if VTK_MODULE_USE_EXTERNAL_vtkexodusII
-+# include <exodusII.h>
++#include <exodusII.h>
 +#else
-+# include <vtkexodusII/include/exodusII.h>
++#include <vtkexodusII/include/exodusII.h>
 +#endif
 +
 +#endif
+diff --git a/ThirdParty/exodusII/vtkexodusII/src/ex_put_prop.c b/ThirdParty/exodusII/vtkexodusII/src/ex_put_prop.c
+index 6b1a86598a3..3f2dc08d17c 100644
+--- a/ThirdParty/exodusII/vtkexodusII/src/ex_put_prop.c
++++ b/ThirdParty/exodusII/vtkexodusII/src/ex_put_prop.c
+@@ -243,7 +243,7 @@ int ex_put_prop(int exoid, ex_entity_type obj_type, ex_entity_id obj_id, const c
+     vals[0] = 0; /* fill value */
+     /*   create attribute to cause variable to fill with zeros per routine spec
+      */
+-    if ((status = nc_put_att_longlong(exoid, propid, _FillValue, int_type, 1, vals)) != NC_NOERR) {
++    if ((status = nc_put_att_longlong(exoid, propid, NC_FillValue, int_type, 1, vals)) != NC_NOERR) {
+       snprintf(errmsg, MAX_ERR_LENGTH,
+                "ERROR: failed to create property name fill attribute in file id %d", exoid);
+       ex_err_fn(exoid, __func__, errmsg, status);
+diff --git a/ThirdParty/exodusII/vtkexodusII/src/ex_put_prop_names.c b/ThirdParty/exodusII/vtkexodusII/src/ex_put_prop_names.c
+index d88b2aeccb7..82458c14ada 100644
+--- a/ThirdParty/exodusII/vtkexodusII/src/ex_put_prop_names.c
++++ b/ThirdParty/exodusII/vtkexodusII/src/ex_put_prop_names.c
+@@ -172,7 +172,7 @@ int ex_put_prop_names(int exoid, ex_entity_type obj_type, int num_props, char **
+ 
+     /*   create attribute to cause variable to fill with zeros per routine spec
+      */
+-    if ((status = nc_put_att_longlong(exoid, propid, _FillValue, int_type, 1, vals)) != NC_NOERR) {
++    if ((status = nc_put_att_longlong(exoid, propid, NC_FillValue, int_type, 1, vals)) != NC_NOERR) {
+       snprintf(errmsg, MAX_ERR_LENGTH,
+                "ERROR: failed to create property name fill attribute in file id %d", exoid);
+       ex_err_fn(exoid, __func__, errmsg, status);
